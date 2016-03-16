@@ -1,0 +1,205 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select {
+    max-width: 280px;
+}
+
+[class*="col-"] {
+    padding: 0;
+}
+
+.banner {
+    width: 100%;
+    height: 100%;
+    background-color: #F8F8F8;
+    padding-bottom: 15px;
+}
+
+.inset {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 2px;
+}
+
+.inset-small {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 2px;
+}
+
+.plan {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 2px;
+    height: 100%;
+    background-color: #eee;
+    background-color: rgba(86,61,124,.15);
+    background-color: #f4f7f8;
+}
+
+.plan-button {
+}
+
+    .plan-button:hover {
+        background-color: #eee;
+    }
+
+.plan-complete {
+    background-color: #d9f4d2;
+}
+
+.thread {
+    margin: 0px;
+    padding: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #eee;
+    background-color: rgba(86,61,124,.15);
+    background-color: #f4f7f8;
+}
+
+.textbox {
+    margin-left: 0px;
+    margin-right: 0px;
+    max-width: 100%;
+}
+
+div.img {
+    margin: 5px;
+    padding: 0px;
+    border: 1px solid #0000ff;
+    height: auto;
+    width: auto;
+    float: left;
+    text-align: left;
+}
+
+.description {
+    height: 50px;
+}
+
+.sidebar {
+    resize: both;
+    overflow: auto;
+}
+
+.buttons {
+    position: absolute;
+    bottom: 0;
+}
+
+h3 {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.background {
+}
+
+.wide {
+    max-width: none;
+    width: 100%;
+}
+
+.form-inline-nospace {
+    display: inline-block;
+    white-space: nowrap;
+    background-color: red;
+}
+
+.tile-title {
+    font-size: large;
+}
+
+.tile-body {
+    color: #B0B0B0;
+}
+
+.img-padded {
+    padding: 30px;
+}
+
+.img-button {
+    opacity: 0.4;
+}
+
+.img-btn {
+    opacity: 0.4;
+}
+
+.img-btn-light {
+    opacity: 0.2;
+}
+
+.img-button-opaque {
+    opacity: 0.8;
+}
+
+.img-button:hover {
+    opacity: 1;
+}
+
+.img-btn:hover {
+    opacity: 1;
+}
+
+.img-button-opaque:hover {
+    opacity: 1;
+}
+
+.ui-state-focus {
+    background: none !important;
+    background-color: #8cabc6 !important;
+    border: none !important;
+}
+
+.colortitle {
+    color: #648fb3;
+}
+
+.prompt {
+    padding-top: 10px;
+    padding-bottom: 6px;
+    font-size: medium;
+    color: gray;
+}
+
+.rating-icon-active {
+    color: orange;
+}
+
+.rating-icon-inactive {
+    color: gray;
+}
+
+.glyphicon-remove {
+    color: lightgrey;
+}
+
+.glyphicon-remove:hover{
+    color: gray;
+}

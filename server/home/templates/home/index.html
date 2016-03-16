@@ -1,0 +1,89 @@
+{% extends "_layout.html" %}
+{% load staticfiles %}
+{% block title %}Home{% endblock %}
+{% block body %}
+
+<div class="col-sm-12">
+    <div class="plan clearfix">
+        <div style="margin-top:60px; margin-bottom:60px">
+            <div class="col-lg-6">
+                <div style="margin:15px">
+                    <h2 class="colortitle">
+                        Learn any language
+                    </h2>
+                    <h3>
+                        Find language learning resources and strategies that fit your goals and interests.
+                        <br />
+                        <br />
+                        <br />
+                        Keep yourself motivated by earning badges and tracking your progress.
+                    </h3>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <img src="{% static "images/front-dashboard.png" %}" style="width:100%; opacity:0.6" />
+            </div>
+
+            <div class="col-lg-12" style="margin-bottom:60px">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="plan clearfix">
+        <div style="margin-top:60px; margin-bottom:60px">
+            <div class="col-lg-6">
+                <img src="{% static "images/front-badge.png" %}" style="width:100%; opacity:0.6" />
+            </div>
+
+            <div class="col-lg-6">
+                <div style="margin:15px">
+                    <h2 class="colortitle">
+                        Experiment with learning strategies
+                    </h2>
+                    <h3>
+                        Learn about other people's language learning strategies or contribute your own.
+                        <br />
+                        <br />
+                        <br />
+                        Collect badges for trying strategies and earn reputation for contributing useful information.
+                    </h3>
+                </div>
+            </div>
+
+            <div class="col-lg-12" style="margin-bottom:60px">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="plan clearfix">
+        <div style="margin-top:60px; margin-bottom:60px">
+            <div class="col-lg-6">
+                <div style="margin:15px">
+                    <h2 class="colortitle">
+                        Discover language learning resources
+                    </h2>
+                    <h3>
+                        Find resources that others are using to learn language or contribute your own.
+                        <br />
+                        <br />
+                        <br />
+                        Find out whether a resource is right for you or not using community reviews and discussion.
+                    </h3>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <img src="{% static "images/front-resources.png" %}" style="width:100%; opacity:0.6" />
+            </div>
+
+            <div class="col-lg-12" style="margin-bottom:60px">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
