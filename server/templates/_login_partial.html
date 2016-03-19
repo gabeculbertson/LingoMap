@@ -16,8 +16,8 @@
 {% else %}
 
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" id="registerLink">Register</a></li>
-        <li><a href="#" id="loginLink">Log in</a></li>
+        <li><a href="{% url 'register' %}" id="registerLink">Register</a></li>
+        <li><a href="{% url 'login' %}" id="loginLink">Log in</a></li>
     </ul>
 
 {% endif %}
