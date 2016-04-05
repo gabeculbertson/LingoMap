@@ -1,0 +1,46 @@
+{% extends '_layout.html' %}
+{% load common %}
+{% block title %}
+Resources
+{% endblock %}
+{% block body %}
+<h4 class="tile-body" style="margin-top:30px">What do you want to do with your language? Find resources that match your goals and interests.</h4>
+
+<div class="clearfix">
+{% for m in media %}
+
+
+<div class="col-md-4">
+    <div class="plan" onclick="location.href='@Url.Action("StudyMediaDetail", "StudyMedia", new { studyMediaId = Model.StudyMediaId })'">
+        <img src="#" style="width:100%" />
+        <div class="tile-title">
+            <a href="{% url 'resources_detail' m.id %}">{{ m.title }}</a>
+        </div>
+        <div class="tile-body">
+            {{ m.type }}
+        </div>
+        <div class="tile-body">
+            {% if m.has_rating %}
+                <span>Rating:</span>
+                {% for i in 5|get_range %}
+                    {% if i < m.rating %}
+                        <i class='glyphicon glyphicon-star' style="color:orange"></i>
+                    {% else %}
+                        <i class='glyphicon glyphicon-star' style="color:lightgray"></i>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <span>Not enough ratings yet</span>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+
+<div class="clearfix">
+    <a class="btn btn-default" href="{% url 'resources_add' %}">Add a new resource</a>
+</div>
+{% endblock %}

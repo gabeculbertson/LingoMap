@@ -1,0 +1,48 @@
+{% extends '_layout.html' %}
+{% load common %}
+{% block title %}
+Resources
+{% endblock %}
+{% block body %}
+
+<div class="col-sm-12">
+    <div class="plan">
+        <div class="clearfix">
+            <div class="col-lg-4">
+                <h2>{{ m.title }}</h2>
+                <p>
+                    @Html.Action("_MediumTags", new { mediumId = Model.StudyMedia.Id })
+                </p>
+                <p>{{ m.description }}</p>
+                <p>
+                    @if (Model.InUserCollection) {
+                        <input type="button" class="btn btn-default" value="Remove" onclick="location.href='@Url.Action("RemoveMedium", "StudyMedia", new { mediumId = Model.StudyMedia.Id })'" />
+                    } else {
+                        <input type="button" class="btn btn-primary" value="Add" onclick="location.href='@Url.Action("AddMedium", "StudyMedia", new { mediumId = Model.StudyMedia.Id })'" />
+                    }
+                    <button class="btn btn-default" onclick="location.href='@Url.Action("Index", "Plans")'">Find badges</button>
+                </p>
+
+                {% if m.guide_text %}
+                    <h3>Where to find this</h3>
+                    <p>
+                        {{ m.guide_text }}
+                    </p>
+                {% endif %}
+            </div>
+            <div class="col-lg-8">
+                <img class="img-padded" src='@Url.Action( "Show", "Image", new { imageId = Model.StudyMedia.ImageId } )' style="width:100%" />
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <button class="btn btn-sm btn-default" style="float:right" onclick='location.href="@Url.Action("Edit", new { mediumId = Model.StudyMedia.Id })"'>Edit</button>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    @Html.Action("_ResourceReviewThread", "Discussion", new { id = Model.StudyMedia.Id, typeId = LanguageCompass.Helpers.DiscussionHelper.ResourceTopicType })
+</div>
+
+{% endblock %}

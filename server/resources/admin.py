@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import StudyMedia, StudyMediaType
+
+admin.site.register(StudyMedia)
+admin.site.register(StudyMediaType)
