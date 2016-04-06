@@ -23,6 +23,7 @@ urlpatterns = [
 
     url(r'^', include('home.urls')),
     url(r'^resources/', include('resources.urls')),
+    url(r'^dashboard/', include('dashboard.urls')),
 
     url('^', include('django.contrib.auth.urls')),
     url('^register/', CreateView.as_view(
