@@ -1,11 +1,7 @@
-import random
-
 from django.db import models
 from django.core.urlresolvers import reverse
 
-
-class Tag(models.Model):
-    tag = models.CharField(max_length=40)
+from common.models import Tag
 
 
 class StudyMediaType(models.Model):
@@ -17,18 +13,11 @@ class StudyMediaType(models.Model):
 
 
 class StudyMedia(models.Model):
-    TYPES = {
-        1: 'Audio',
-        2: 'Video',
-        3: 'Reading',
-        4: 'Interactive',
-    }
-
     title = models.CharField(max_length=120)
     description = models.TextField(blank=True)
     type = models.ForeignKey(StudyMediaType, null=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(upload_to='resources/%Y/%m/%d/')
     guide_text = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -41,8 +30,8 @@ class StudyMedia(models.Model):
 
     @property
     def rating(self):
-        return random.randint(1, 5)
+        return hash(self.title) % 5 + 1
 
     @property
     def has_rating(self):
-        return random.random() < 0.7
+        return hash(self.title) % 10 < 8

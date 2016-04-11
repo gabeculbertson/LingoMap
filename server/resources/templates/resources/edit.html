@@ -18,8 +18,8 @@ Resources
 
 <div class="clearfix">
     <div class="col-sm-8">
-        <form method="post" class="form-horizontal">
-
+        <form method="post" class="form-horizontal" enctype="multipart/form-data">
+{% csrf_token %}
 
             <div class="thread">
                 <h4>Title*</h4>
