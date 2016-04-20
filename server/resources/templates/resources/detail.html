@@ -10,17 +10,16 @@ Resources
         <div class="clearfix">
             <div class="col-lg-4">
                 <h2>{{ m.title }}</h2>
-                <p>
-{#                    @Html.Action("_MediumTags", new { mediumId = Model.StudyMedia.Id })#}
-                </p>
+                {% url 'resources_add_tag' as action %}
+                {% include 'common/_tag_list.html' with tags=m.all_tags id=m.id %}
                 <p>{{ m.description }}</p>
                 <p>
-                    {% if 0 %}
-                        <input type="button" class="btn btn-default" value="Remove" onclick="location.href='@Url.Action("RemoveMedium", "StudyMedia", new { mediumId = Model.StudyMedia.Id })'" />
+                    {% if added %}
+                        <a class="btn btn-default" href="{% url 'resources_unfav' m.id %}">Remove</a>
                     {% else %}
-                        <input type="button" class="btn btn-primary" value="Add" onclick="location.href='@Url.Action("AddMedium", "StudyMedia", new { mediumId = Model.StudyMedia.Id })'" />
+                        <a class="btn btn-primary" href="{% url 'resources_fav' m.id %}">Add</a>
                     {% endif %}
-                    <a class="btn btn-default" onclick="location.href='@Url.Action("Index", "Plans")'">Find badges</a>
+                    <a class="btn btn-default" href="{% url 'badges_index' %}">Find badges</a>
                 </p>
 
                 {% if m.guide_text %}
@@ -41,8 +40,8 @@ Resources
     </div>
 </div>
 
-<div class="col-sm-12">
-    @Html.Action("_ResourceReviewThread", "Discussion", new { id = Model.StudyMedia.Id, typeId = LanguageCompass.Helpers.DiscussionHelper.ResourceTopicType })
-</div>
+{#<div class="col-sm-12">#}
+{#    @Html.Action("_ResourceReviewThread", "Discussion", new { id = Model.StudyMedia.Id, typeId = LanguageCompass.Helpers.DiscussionHelper.ResourceTopicType })#}
+{#</div>#}
 
 {% endblock %}

@@ -9,58 +9,68 @@ Schedule
     <div class="col-sm-8">
         <h3 style="margin-top:30px">Profile</h3>
         <div class="plan">
-            @Html.Action("_CollapsableUserPreferences", "User")
+            {% if request.user.is_authenticated %}
+
+            Your favorite tags
+
+            {% for tag in fav_tags %}
+                <span class="label label-info">{{ tag.tag }}</span>
+            {% empty %}
+                You have no favorite tags
+            {% endfor %}
+
+
+            {% else %}
+                Please log in to see your favorite tags
+
+            {% endif %}
+
         </div>
 
         <h3 style="margin-top:30px">Resources and badges</h3>
-        @if (Model.CurrentPlans.Count == 0) {
+        {% for resource in resources %}
+            <div class="plan clearfix">
+            {% include 'dashboard/_user_resource.html' %}
+            </div>
+        {% empty %}
             <h4 class="tile-body">
                 You haven't added any resources yet.
-                @Html.ActionLink("Find resources", "Index", "StudyMedia")
+                <a href="{% url 'resources_index' %}">Find resources</a>
             </h4>
-        } else {
-            foreach (var item in Model.CurrentPlans) {
-                <div class="plan clearfix">
-                    @Html.Action("_CurrentPlanBlock", "History", new { model = item })
-                </div>
-            }
-        }
+        {% endfor %}
+
     </div>
 
     <div class="col-sm-4" style="padding-left:16px">
         <h3 style="margin-top:30px">History</h3>
-        @if (Model.Entries.Count == 0) {
+        {% for date, badges in history.items %}
+            <div class="clearfix h4">
+                <div class="col-sm-3 tile-body" style="padding-top:10px">
+                    {{ date }}
+                </div>
+                <div class="col-sm-9">
+                    {% for badge in badges %}
+                        <div class="col-md-2" style="padding-right:1px">
+                        <img class="img-button-opaque"
+                                     style="width:100%"
+                                     src='{% if badge.image %}
+                                        {{ badge.image.url }}
+                                     {% else %}
+                                        ~/images/achievementbadge.png
+                                     {% endif %}'
+                                     onclick="location.href='@Url.Action("PlanDetails", "Plans", new { id = strat.StrategyId })'"
+                                     title='@strat.FullTitle' />
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% empty %}
             <h4 class="tile-body">
                 You don't have any badges yet.
             </h4>
-        } else {
-            foreach (var item in Model.Entries) {
-                <div class="clearfix h4">
-                    <div class="col-sm-3 tile-body" style="padding-top:10px">
-                        @Html.DisplayFor(m => item.Time)
-                    </div>
-                    <div class="col-sm-9">
-                        @foreach (var strat in item.Strategies) {
-                            <div class="col-md-2" style="padding-right:1px">
-                                @if (strat.ImageId == null) {
-                                    <img class="img-button-opaque"
-                                         style="width:100%"
-                                         src='~/images/achievementbadge.png'
-                                         onclick="location.href='@Url.Action("PlanDetails", "Plans", new { id = strat.StrategyId })'"
-                                         title='@strat.FullTitle' />
-                                } else {
-                                    <img class="img-button-opaque"
-                                         style="width:100%"
-                                         src='@Url.Action("Show", "Image", new { imageId = strat.ImageId })'
-                                         onclick="location.href='@Url.Action("PlanDetails", "Plans", new { id = strat.StrategyId })'"
-                                         title='@strat.FullTitle' />
-                                }
-                            </div>
-                        }
-                    </div>
-                </div>
-            }
-        }
+        {% endfor %}
+
     </div>
 </div>
 {% endblock %}

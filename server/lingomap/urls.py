@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^', include('home.urls')),
     url(r'^resources/', include('resources.urls')),
     url(r'^dashboard/', include('dashboard.urls')),
+    url(r'^badges/', include('badges.urls')),
+    url(r'^common/', include('common.urls')),
 
     url('^', include('django.contrib.auth.urls')),
     url('^register/', CreateView.as_view(

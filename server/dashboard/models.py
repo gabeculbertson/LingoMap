@@ -1,22 +1,37 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from common.models import Tag
+from resources.models import StudyMedia
+from badges.models import Badge
 
-class Language(models.Model):
-    name = models.CharField(max_length=24)
+
+class UserFavoriteTags(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'tag')
+
+
+class UserResources(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    resource = models.ForeignKey(StudyMedia, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return str(self.resource)
+
+    class Meta:
+        unique_together = ('user', 'resource')
 
 
-class Goal(models.Model):
-    name = models.CharField(max_length=24)
+class AssignedBadges(models.Model):
+    resource = models.ForeignKey(UserResources, on_delete=models.CASCADE)
+    badge = models.ForeignKey(Badge, on_delete=models.CASCADE)
+    completed = models.BooleanField()
+    completed_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.name
+    class Meta:
+        unique_together = ('badge', 'resource')
 
 
-class UserPreference(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    lang = models.ForeignKey(Language, on_delete=models.CASCADE)
-    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)

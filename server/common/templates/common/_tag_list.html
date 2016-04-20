@@ -1,0 +1,20 @@
+<p>Tags:
+
+{% for tag in tags %}
+<span class="label label-default">{{ tag.tag }}</span>
+{% endfor %}
+<form method="post" action="{{ action }}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}" />
+    <input type="hidden" name="id" value="{{ id }}" />
+    <input type="text" name="tag" class="tags-autocomplete" />
+    <input type="submit" />
+</form>
+</p>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.tags-autocomplete').autocomplete({
+                    source: '{% url 'common_tags_list' %}'
+                });
+            })
+        </script>
