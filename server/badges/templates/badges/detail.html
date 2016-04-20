@@ -23,7 +23,10 @@ Badge Detail
                         <p style="color:#a21e1e">
                             Very difficult
                         </p>
-{#                        @Html.Action("_PlanTags", "Plans", new { planId = Model.Badge.Id })#}
+                        <p>
+                        {% url 'badges_add_tag' as action %}
+                        {% include 'common/_tag_list.html' with tags=badge.visible_tags id=badge.id %}
+                        </p>
                     </div>
                 </div>
             </div>

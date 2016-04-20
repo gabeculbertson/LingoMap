@@ -2,11 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import ModelForm
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
 
 from .models import StudyMedia, StudyMediaTags
 
-from common.models import Tag, TAG_ADD_VALIDITY_BOOST
+from common.views import TagAddView
 
 from dashboard.models import UserResources
 
@@ -48,15 +47,9 @@ def detail(request, rid):
     return render(request, 'resources/detail.html', context={'m': media, 'added': added})
 
 
-def add_tag(request):
-    tag, created = Tag.objects.get_or_create(tag=request.POST.get('tag'))
-
-    relation, created = StudyMediaTags.objects.get_or_create(media_id=int(request.POST.get('id')), tag=tag)
-    if not created:
-        relation.validity = max(relation.validity * TAG_ADD_VALIDITY_BOOST, 1.0)
-        relation.save()
-
-    return redirect(request.POST.get('next'))
+class MediaTagAddView(TagAddView):
+    klass = StudyMediaTags
+    field = 'media'
 
 
 @login_required

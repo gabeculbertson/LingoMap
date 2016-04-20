@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 from django.core.urlresolvers import reverse
 
@@ -29,8 +31,8 @@ class StudyMedia(models.Model):
         return reverse('resources_detail', args=[self.id])
 
     @property
-    def all_tags(self):
-        return self.tags.all()
+    def visible_tags(self):
+        return self.tags.filter(studymediatags__validity__gte=random.random())
 
     @property
     def rating(self):

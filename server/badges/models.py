@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 from common.models import Tag
 from django.core.urlresolvers import reverse
@@ -15,6 +17,10 @@ class Badge(models.Model):
 
     def get_absolute_url(self):
         return reverse('badges_detail', args=[self.id])
+
+    @property
+    def visible_tags(self):
+        return self.tags.filter(badgetags__validity__gte=random.random())
 
 
 class BadgeTags(models.Model):

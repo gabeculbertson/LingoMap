@@ -1,12 +1,13 @@
 from django.shortcuts import render
 
-from .models import Badge
+from .models import Badge, BadgeTags
 from django import forms
 from django.forms import ModelForm, Form
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import get_object_or_404
 
 from dashboard.models import UserResources
+from common.views import TagAddView
 
 
 class BadgeForm(ModelForm):
@@ -33,6 +34,11 @@ class BadgeAddToMediaForm(Form):
         super(BadgeAddToMediaForm, self).__init__(*args, **kwargs)
 
         self.fields['user_resource'].queryset = UserResources.objects.filter(user=user)
+
+
+class BadgeTagAddView(TagAddView):
+    klass = BadgeTags
+    field = 'badge'
 
 
 def index(request):
