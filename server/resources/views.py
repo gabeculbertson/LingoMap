@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from .models import StudyMedia, StudyMediaTags
 
-from common.views import TagAddView
+from common.views import TagAddView, TagFlagView
 
 from dashboard.models import UserResources
 
@@ -48,6 +48,11 @@ def detail(request, rid):
 
 
 class MediaTagAddView(TagAddView):
+    klass = StudyMediaTags
+    field = 'media'
+
+
+class MediaTagFlagView(TagFlagView):
     klass = StudyMediaTags
     field = 'media'
 

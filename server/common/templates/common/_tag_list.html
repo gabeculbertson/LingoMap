@@ -1,16 +1,21 @@
-<p>Tags:
+<div>Tags:
 
 {% for tag in tags %}
 <span class="label label-default">{{ tag.tag }}</span>
 {% endfor %}
-<form method="post" action="{{ action }}">
+
+</div>
+<form method="post" action="{{ action }}" class="tag-add-input-group">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ request.path }}" />
     <input type="hidden" name="id" value="{{ id }}" />
-    <input type="text" name="tag" class="tags-autocomplete" />
-    <input type="submit" />
+    <div class="input-group input-group-sm">
+        <input type="text" name="tag" class="tags-autocomplete form-control" />
+        <div class="input-group-btn">
+        <input type="submit" class="btn btn-default" value="Add" />
+        </div>
+    </div>
 </form>
-</p>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('.tags-autocomplete').autocomplete({

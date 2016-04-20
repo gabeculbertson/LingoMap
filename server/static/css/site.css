@@ -16,11 +16,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select {
-    max-width: 280px;
-}
 
 [class*="col-"] {
     padding: 0;
@@ -202,4 +197,14 @@ h3 {
 
 .glyphicon-remove:hover{
     color: gray;
+}
+
+
+/*------------------*/
+/* TAGS             */
+/*------------------*/
+.tag-add-input-group {
+    display: inline-block;
+    max-width: 150px;
+
 }
