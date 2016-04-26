@@ -1,7 +1,10 @@
 <div>Tags:
 
 {% for tag in tags %}
-<span class="label label-default">{{ tag.tag }}</span>
+<div class="label label-default tag-label">{{ tag.tag }}
+
+<div class="tag-flag-btn">Flag</div>
+</div>
 {% endfor %}
 
 </div>

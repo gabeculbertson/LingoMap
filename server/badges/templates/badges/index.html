@@ -1,5 +1,6 @@
 {% extends '_layout.html' %}
 {% load common %}
+{% load staticfiles %}
 {% block title %}
 Index
 {% endblock %}
@@ -11,7 +12,7 @@ Index
         <div class="col-md-4">
             <div class="plan clearfix">
                 <div class="col-xs-4">
-                    <img src="~/images/plus.ico" style="width:100%" />
+                    <img src="{% static "images/plus.ico" %}" style="width:100%" />
                 </div>
 
                 <div class="col-xs-8">

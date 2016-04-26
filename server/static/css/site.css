@@ -208,3 +208,16 @@ h3 {
     max-width: 150px;
 
 }
+
+.label.tag-label {
+    display: inline-block;
+}
+
+.tag-flag-btn {
+    display: none;
+}
+
+.tag-label:hover .tag-flag-btn {
+    display: block;
+}
+
