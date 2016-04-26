@@ -4,6 +4,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from common.models import Tag
+from common.libs.models import BBCodeField
 
 
 class StudyMediaType(models.Model):
@@ -16,11 +17,11 @@ class StudyMediaType(models.Model):
 
 class StudyMedia(models.Model):
     title = models.CharField(max_length=120)
-    description = models.TextField(blank=True)
+    description = BBCodeField(blank=True)
     type = models.ForeignKey(StudyMediaType, null=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True, through='StudyMediaTags')
     image = models.ImageField(upload_to='resources/%Y/%m/%d/')
-    guide_text = models.TextField(blank=True)
+    guide_text = BBCodeField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

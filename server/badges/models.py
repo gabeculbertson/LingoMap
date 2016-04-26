@@ -3,12 +3,13 @@ import random
 from django.db import models
 from common.models import Tag
 from django.core.urlresolvers import reverse
+from common.libs.models import BBCodeField
 
 
 class Badge(models.Model):
     title = models.CharField(max_length=120)
-    summary = models.TextField(blank=True)
-    detail = models.TextField(blank=True)
+    summary = BBCodeField(blank=True)
+    detail = BBCodeField(blank=True)
     image = models.ImageField(upload_to='badges/%Y/%m/%d/', blank=True)
     tags = models.ManyToManyField(Tag, through='BadgeTags', blank=True)
 

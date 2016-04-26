@@ -12,7 +12,7 @@ Resources
                 <h2>{{ m.title }}</h2>
                 {% url 'resources_add_tag' as action %}
                 {% include 'common/_tag_list.html' with tags=m.visible_tags id=m.id %}
-                <p>{{ m.description }}</p>
+                <p>{{ m.description|bbcode }}</p>
                 <p>
                     {% if added %}
                         <a class="btn btn-default" href="{% url 'resources_unfav' m.id %}">Remove</a>
@@ -25,7 +25,7 @@ Resources
                 {% if m.guide_text %}
                     <h3>Where to find this</h3>
                     <p>
-                        {{ m.guide_text }}
+                        {{ m.guide_text|bbcode }}
                     </p>
                 {% endif %}
             </div>
