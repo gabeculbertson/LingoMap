@@ -35,6 +35,7 @@ urlpatterns = [
             form_class=UserCreationForm,
             success_url='/'
     ), name='register'),
+    url(r'^comments/', include('django_comments.urls')),
 ]
 
 if settings.DEBUG:

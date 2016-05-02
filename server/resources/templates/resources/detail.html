@@ -1,5 +1,6 @@
 {% extends '_layout.html' %}
 {% load common %}
+{% load comments %}
 {% block title %}
 Resources
 {% endblock %}
@@ -40,8 +41,20 @@ Resources
     </div>
 </div>
 
-{#<div class="col-sm-12">#}
-{#    @Html.Action("_ResourceReviewThread", "Discussion", new { id = Model.StudyMedia.Id, typeId = LanguageCompass.Helpers.DiscussionHelper.ResourceTopicType })#}
-{#</div>#}
+<div class="col-sm-12">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Review</a></li>
+    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="reviews">...</div>
+    <div role="tabpanel" class="tab-pane" id="comments">
+{% render_comment_list for m %}
+{% render_comment_form for m %}</div>
+  </div>
+</div>
 
 {% endblock %}
