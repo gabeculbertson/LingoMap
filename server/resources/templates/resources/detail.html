@@ -12,7 +12,7 @@ Resources
             <div class="col-lg-4">
                 <h2>{{ m.title }}</h2>
                 {% url 'resources_add_tag' as action %}
-                {% include 'common/_tag_list.html' with tags=m.visible_tags id=m.id %}
+                {% include 'common/_tag_list.html' with tags=m.visible_tags id=m.id tag_flag_url='resources_flag_tag' %}
                 <p>{{ m.description|bbcode }}</p>
                 <p>
                     {% if added %}

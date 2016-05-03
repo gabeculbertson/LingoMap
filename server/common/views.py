@@ -30,18 +30,18 @@ class TagFlagView(View):
     klass = None
     field = ''
 
-    def post(self, request):
-        tag_id = int(request.POST.get('tag_id'))
+    def get(self, request):
+        tag_id = int(request.GET.get('tag_id'))
 
         attrs = {
             'tag_id': tag_id,
-            self.field + '_id': int(request.POST.get('id'))
+            self.field + '_id': int(request.GET.get('id'))
         }
         relation = self.klass.objects.get(**attrs)
         relation.validity = relation.validity * TAG_FLAG_VALIDITY_DAMP
         relation.save()
 
-        return redirect(request.POST.get('next'))
+        return JsonResponse({'success': True})
 
 
 def tags_list(request):

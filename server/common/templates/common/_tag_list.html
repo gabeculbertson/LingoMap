@@ -1,14 +1,27 @@
 <div>Tags:
-
+<script>
+var url, flag_tag;
+if (!flag_tag) {
+    flag_tag = function(obj, id, oid) {
+        $(obj).text('Flagging...');
+        $.get(url, {tag_id: id, id: oid}, function() {
+            $(obj).removeClass('label-warning').addClass('label-default').removeClass('clickable').text('Flagged').off('click');
+        });
+    }
+}
+url = '{% url tag_flag_url %}';
+</script>
 {% for tag in tags %}
-<div class="label label-default tag-label">{{ tag.tag }}
+<div class="label label-info tag-label">{{ tag.tag }}
 
-<div class="tag-flag-btn">Flag</div>
+<div class="tag-flag-btn label label-warning clickable" onclick="flag_tag(this, '{{ tag.id }}', {{ id }})">Flag</div>
 </div>
 {% endfor %}
 
+<div class="label label-primary clickable" onclick="$('.tag-add-input-group').toggle()">+</div>
+
 </div>
-<form method="post" action="{{ action }}" class="tag-add-input-group">
+<form method="post" action="{{ action }}" class="tag-add-input-group" style="display: none">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ request.path }}" />
     <input type="hidden" name="id" value="{{ id }}" />
