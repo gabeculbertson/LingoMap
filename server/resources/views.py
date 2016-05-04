@@ -1,18 +1,33 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import ModelForm
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 
-from .models import StudyMedia, StudyMediaTags
+from common.libs.models import RatingWidget
+
+from .models import StudyMedia, StudyMediaTags, StudyMediaReview
 
 from common.views import TagAddView, TagFlagView
 
 from dashboard.models import UserResources
 
+
 class StudyMediaForm(ModelForm):
     class Meta:
         model = StudyMedia
         fields = ['title', 'description', 'type', 'image', 'guide_text']
+
+
+class StudyMediaReviewForm(ModelForm):
+    class Meta:
+        model = StudyMediaReview
+        widgets = {
+            'fun': RatingWidget,
+            'useful': RatingWidget,
+        }
+        exclude = ['post', 'author']
+
 
 
 class StudyMediaCreateView(CreateView):
@@ -35,7 +50,11 @@ def index(request):
 def detail(request, rid):
     media = get_object_or_404(StudyMedia, pk=rid)
 
+    reviews = media.studymediareview_set.prefetch_related('author').all()
+
     added = False
+
+    review_form = None
 
     if request.user.is_authenticated():
         try:
@@ -44,7 +63,9 @@ def detail(request, rid):
         except UserResources.DoesNotExist:
             pass
 
-    return render(request, 'resources/detail.html', context={'m': media, 'added': added})
+        review_form = StudyMediaReviewForm()
+
+    return render(request, 'resources/detail.html', context={'m': media, 'added': added, 'reviews': reviews, 'review_form': review_form})
 
 
 class MediaTagAddView(TagAddView):
@@ -56,6 +77,20 @@ class MediaTagFlagView(TagFlagView):
     klass = StudyMediaTags
     field = 'media'
 
+
+@login_required
+@require_POST
+def submit_review(request, rid):
+    form = StudyMediaReviewForm(request.POST)
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.post_id = rid
+        obj.author = request.user
+        obj.save()
+
+        return redirect('resources_detail', rid)
+    else:
+        raise Exception('Invalid form')
 
 @login_required
 def favorite(request, rid):

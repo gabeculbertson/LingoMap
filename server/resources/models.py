@@ -2,6 +2,8 @@ import random
 
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 
 from common.models import Tag
 from common.libs.models import BBCodeField
@@ -48,3 +50,31 @@ class StudyMediaTags(models.Model):
     media = models.ForeignKey(StudyMedia, on_delete=models.CASCADE)
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
     validity = models.FloatField(default=1.0)
+
+LEVELS = (
+    (-1, 'No one'),
+    (0, 'Anyone'),
+    (1, 'Beginner'),
+    (2, 'Intermediate'),
+    (3, 'Advanced'),
+)
+
+CHALLENGING = (
+    (1, 'Too easy'),
+    (2, 'Just right'),
+    (3, 'Too hard'),
+)
+
+
+class StudyMediaReview(models.Model):
+    post = models.ForeignKey(StudyMedia)
+    author = models.ForeignKey(User)
+    recommend = models.BooleanField()
+    fun = models.IntegerField(default=5, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    useful = models.IntegerField(default=5, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    level = models.IntegerField(choices=LEVELS)
+    challenging = models.IntegerField(choices=CHALLENGING)
+    comment = models.TextField(blank=True)
+
+    def get_absolute_url(self):
+        return reverse('resources_detail', args=[self.post_id])

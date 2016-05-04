@@ -1,5 +1,5 @@
 {% extends '_layout.html' %}
-{% load common %}
+{% load common %}{% load staticfiles %}
 {% load comments %}
 {% block title %}
 Resources
@@ -50,7 +50,35 @@ Resources
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="reviews">...</div>
+    <div role="tabpanel" class="tab-pane active" id="reviews">
+    <ul class="reviews-list col-md-7">
+    {% for review in reviews %}
+        <li>
+
+            <img src="{% if review.recommend %}{% static 'images/thumbsup.png' %}{% else %}{% static 'images/thumbsdown.png' %}{% endif %}" width="80" height="80" />
+
+        <p>Author: {{ review.author.username }}</p>
+        <p>Fun: {{ review.fun }}</p>
+        <p>Useful: {{ review.useful }}</p>
+        <p>Level: {{ review.level }}</p>
+
+        </li>
+    {% endfor %}
+    </ul>
+
+<div class="col-md-5">
+        {% if review_form %}
+            <form method="post" action="{% url 'resources_review' m.id %}">
+    {% csrf_token %}
+        {{ review_form.as_p }}
+            <input class="btn" type="submit" value="Submit" />
+            </form>
+        {% else %}
+            You must log in to write reviews
+
+        {% endif %}
+</div>
+    </div>
     <div role="tabpanel" class="tab-pane" id="comments">
 {% render_comment_list for m %}
 {% render_comment_form for m %}</div>
