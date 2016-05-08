@@ -10,7 +10,7 @@
         <li>
             <a href="#">Hello {% firstof user.first_name user.username %}!</a>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="{% url 'logout' %}">Log off</a></li>
     </ul>
 
 {% else %}
