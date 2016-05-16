@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Badge, BadgeTags
 from django import forms
@@ -6,8 +6,8 @@ from django.forms import ModelForm, Form
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import get_object_or_404
 
-from dashboard.models import UserResources
-from common.views import TagAddView
+from dashboard.models import UserResources, AssignedBadges
+from common.views import TagAddView, TagFlagView
 
 
 class BadgeForm(ModelForm):
@@ -30,13 +30,18 @@ class BadgeUpdateView(UpdateView):
 class BadgeAddToMediaForm(Form):
     user_resource = forms.ModelChoiceField(queryset=UserResources.objects.all())
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, user, badge_id, *args, **kwargs):
         super(BadgeAddToMediaForm, self).__init__(*args, **kwargs)
 
-        self.fields['user_resource'].queryset = UserResources.objects.filter(user=user)
+        self.fields['user_resource'].queryset = UserResources.objects.filter(user=user).exclude(assignedbadges__badge_id=badge_id)
 
 
 class BadgeTagAddView(TagAddView):
+    klass = BadgeTags
+    field = 'badge'
+
+
+class BadgeTagFlagView(TagFlagView):
     klass = BadgeTags
     field = 'badge'
 
@@ -51,5 +56,15 @@ def detail(request, rid):
     badge = get_object_or_404(Badge, pk=rid)
     form = None
     if request.user.is_authenticated():
-        form = BadgeAddToMediaForm(request.user)
+        form = BadgeAddToMediaForm(request.user, int(rid))
     return render(request, 'badges/detail.html', context={'badge': badge, 'form': form})
+
+
+def addto(request, pk):
+    assignment = AssignedBadges()
+    assignment.resource_id = int(request.POST.get('user_resource'))
+    assignment.badge_id = int(pk)
+    assignment.completed = False
+    assignment.save()
+
+    return redirect('badges_detail', pk)

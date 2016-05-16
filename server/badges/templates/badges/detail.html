@@ -26,7 +26,7 @@ Badge Detail
                         </p>
                         <p>
                         {% url 'badges_add_tag' as action %}
-                        {% include 'common/_tag_list.html' with tags=badge.visible_tags id=badge.id %}
+                        {% include 'common/_tag_list.html' with tags=badge.visible_tags id=badge.id tag_flag_url='badges_flag_tag' %}
                         </p>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ Badge Detail
                 <div class="clearfix">
                     <div style="float:right; margin-top:15px; margin-bottom:15px">
                         {% if form %}
-                            <form>
+                            <form method="post" action="{% url 'badges_addto' badge.id %}">
                             {% csrf_token %}
 
                             Add to resource: {% render_field form.user_resource onchange="this.form.submit()" %}
