@@ -39,11 +39,12 @@ class StudyMedia(models.Model):
 
     @property
     def rating(self):
-        return hash(self.title) % 5 + 1
+        avg = self.studymediareview_set.all().aggregate(models.Avg('recommend'))
+        return round(avg['recommend__avg'] * 5)
 
     @property
     def has_rating(self):
-        return hash(self.title) % 10 < 8
+        return len(self.studymediareview_set.all()) > 0
 
 
 class StudyMediaTags(models.Model):
