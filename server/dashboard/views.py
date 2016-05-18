@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.humanize.templatetags.humanize import naturalday
 
@@ -31,3 +31,17 @@ def index(request):
     context['history'] = history
 
     return render(request, 'dashboard/index.html', context=context)
+
+
+@login_required
+def badge_mark_complete(request, pk):
+    AssignedBadges.objects.filter(id=pk, resource__user_id=request.user.id).update(completed=True)
+
+    return redirect('dashboard_index')
+
+
+@login_required
+def badge_mark_uncomplete(request, pk):
+    AssignedBadges.objects.filter(id=pk, resource__user_id=request.user.id).update(completed=False)
+
+    return redirect('dashboard_index')

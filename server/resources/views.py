@@ -63,7 +63,13 @@ def detail(request, rid):
         except UserResources.DoesNotExist:
             pass
 
-        review_form = StudyMediaReviewForm()
+        my_review = None
+        try:
+            my_review = StudyMediaReview.objects.get(post=media, author=request.user)
+        except StudyMediaReview.DoesNotExist:
+            pass
+
+        review_form = StudyMediaReviewForm(instance=my_review)
 
     return render(request, 'resources/detail.html', context={'m': media, 'added': added, 'reviews': reviews, 'review_form': review_form})
 
@@ -81,7 +87,13 @@ class MediaTagFlagView(TagFlagView):
 @login_required
 @require_POST
 def submit_review(request, rid):
-    form = StudyMediaReviewForm(request.POST)
+    my_review = None
+    try:
+        my_review = StudyMediaReview.objects.get(post_id=rid, author=request.user)
+    except StudyMediaReview.DoesNotExist:
+        pass
+
+    form = StudyMediaReviewForm(request.POST, instance=my_review)
     if form.is_valid():
         obj = form.save(commit=False)
         obj.post_id = rid
