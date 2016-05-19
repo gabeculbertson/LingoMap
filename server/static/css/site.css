@@ -229,3 +229,17 @@ h3 {
     cursor: pointer;
 }
 
+/*-------------------*/
+/* REVIEW            */
+/*-------------------*/
+ul.reviews-list {
+    list-style: none;
+}
+
+.single-review {
+    display: flex;
+}
+
+.review-icon {
+    padding: 10px;
+}

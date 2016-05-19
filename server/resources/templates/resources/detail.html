@@ -53,15 +53,17 @@ Resources
     <div role="tabpanel" class="tab-pane active" id="reviews">
     <ul class="reviews-list col-md-7">
     {% for review in reviews %}
-        <li>
-
+        <li class="row thread single-review">
+            <div class="review-icon">
             <img src="{% if review.recommend %}{% static 'images/thumbsup.png' %}{% else %}{% static 'images/thumbsdown.png' %}{% endif %}" width="80" height="80" />
+            </div>
+        <div class="review-content">
 
         <p>Author: {{ review.author.username }}</p>
         <p>Fun: {{ review.fun }}</p>
         <p>Useful: {{ review.useful }}</p>
         <p>Level: {{ review.level }}</p>
-
+        </div>
         </li>
     {% endfor %}
     </ul>
