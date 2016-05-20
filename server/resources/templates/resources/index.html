@@ -1,5 +1,6 @@
 {% extends '_layout.html' %}
 {% load common %}
+{% load cropping %}
 {% block title %}
 Resources
 {% endblock %}
@@ -12,7 +13,7 @@ Resources
 
 <div class="col-md-4">
     <div class="plan" onclick="location.href='{% url 'resources_detail' m.id %}'">
-        <img src="{{ m.image.url }}" style="width:100%" />
+        <img src="{% cropped_thumbnail m "image_crop" %}" style="width:100%" />
         <div class="tile-title">
             <a href="{% url 'resources_detail' m.id %}">{{ m.title }}</a>
         </div>

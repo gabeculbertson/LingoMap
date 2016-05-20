@@ -16,7 +16,7 @@ from dashboard.models import UserResources
 class StudyMediaForm(ModelForm):
     class Meta:
         model = StudyMedia
-        fields = ['title', 'description', 'type', 'image', 'guide_text']
+        fields = ['title', 'description', 'type', 'image', 'image_crop', 'guide_text']
 
 
 class StudyMediaReviewForm(ModelForm):

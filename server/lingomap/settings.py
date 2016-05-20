@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from easy_thumbnails.conf import Settings as ThumbnailSettings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'widget_tweaks',
     'django_comments',
+    'easy_thumbnails',
+    'image_cropping',
 
 ]
 
@@ -136,3 +139,8 @@ MEDIA_URL = '/media/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + ThumbnailSettings.THUMBNAIL_PROCESSORS

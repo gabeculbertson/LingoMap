@@ -1,6 +1,7 @@
 {% extends '_layout.html' %}
 {% load common %}{% load staticfiles %}
 {% load comments %}
+{% load cropping %}
 {% block title %}
 Resources
 {% endblock %}
@@ -31,7 +32,7 @@ Resources
                 {% endif %}
             </div>
             <div class="col-lg-8">
-                <img class="img-padded" src="{{ m.image.url }}" style="width:100%" />
+                <img class="img-padded" src="{% cropped_thumbnail m "image_crop" %}" style="width:100%" />
             </div>
         </div>
 

@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 
+from image_cropping import ImageCropField, ImageRatioField
+
 from common.models import Tag
 from common.libs.models import BBCodeField
 
@@ -22,7 +24,8 @@ class StudyMedia(models.Model):
     description = BBCodeField(blank=True)
     type = models.ForeignKey(StudyMediaType, null=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True, through='StudyMediaTags')
-    image = models.ImageField(upload_to='resources/%Y/%m/%d/')
+    image = ImageCropField(upload_to='resources/%Y/%m/%d/')
+    image_crop = ImageRatioField('image', '684x320')
     guide_text = BBCodeField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
