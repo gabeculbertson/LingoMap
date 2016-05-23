@@ -37,6 +37,9 @@ First one would need to create a `virtualenv`. Once the environment is activated
 ### Prepare Database
 Before the website can run, database must be properly populated. Run `python manage.py makemigrations` will generate the necessary migrations, and `python manage.py migrate` will populate the database. These steps should be redone whenever the database schema is modified.
 
+### Running manage.py Commands in PyCharm
+`manage.py` is basically a script that executes various administrative functions. In Command Line one would simply run `python manage.py [command]`, but in PyCharm, pressing Alt+R will give you a console to run these commands, with autocomplete.   
+
 ### Create admin user
 It goes without saying that a superuser must be created to administer the website. Running `python manage.py createsuperuser` will do this for you.
 
@@ -68,3 +71,7 @@ Stores templates that don't belong to specific apps, including general layout an
 
 #### `static`
 Static resources, including CSS, JavaScript, images, etc.
+
+## Deploying to Production
+
+Before deploying to production, read the [guide](https://docs.djangoproject.com/en/1.9/howto/deployment/) and run the checklist
